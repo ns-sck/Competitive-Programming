@@ -1,0 +1,11 @@
+int fastPow(int base, int exp) {
+    int ans = 1;
+    for(int i = 0; i < 45; i++) {
+        if((1LL << i) & exp)
+            ans *= base;
+        base *= base;
+        base %= MOD;
+        ans %= MOD;
+    }
+    return ans;
+}
