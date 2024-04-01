@@ -10,13 +10,9 @@ public:
             swap(s[i], s[i+j]);
             j += 2;
         }
-        ll d = 1, y = 0LL;
-        for (int i = sz-1; ~i; --i) {
-            y += d * (s[i] - '0');
-            d *= 10;
-        }
-        if (y >= INT_MAX || y <= INT_MIN) return 0;
-        if (x < 0) return -y;
-        return y;
+        ll ans = stoll(s);
+        if (ans >= INT_MAX || ans <= INT_MIN) return 0;
+        if (x < 0) return -ans;
+        return ans;
     }
 };
