@@ -1,17 +1,26 @@
-int fastPow(int base, int exp) {
+int fp(int base, int exp) {
     int ans = 1;
     for(int i = 0; i < 45; i++) {
         if((1LL << i) & exp)
             ans *= base;
         base *= base;
-        base %= MOD;
-        ans %= MOD;
+        base %= _mod;
+        ans %= _mod;
     }
     return ans;
 }
 
-long long invMod(long long x){
-	return fastpow(x, MOD-2);
+long long inv(long long x){
+	return fp(x, _mod-2);
+}
+
+int fact(int x) {
+    int result = 1;
+    for (int i = 1; i <= x; i++) {
+        result *= i;
+        result %= _mod;
+    }
+    return result;
 }
 
 long long comb(long long x, long long y){
@@ -21,5 +30,5 @@ long long comb(long long x, long long y){
 	if(y == 0){
 		return 1;
 	}
-	return (((fact[x] * invMod(fact[y])) % MOD) * (invMod(fact[x-y]) % MOD)) % MOD;
+	return (((fact[x] * inv(fact[y])) % _mod) * (inv(fact[x-y]) % _mod)) % _mod;
 }

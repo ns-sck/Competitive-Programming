@@ -3,11 +3,11 @@
 
 using namespace std;
 
-const int MAXN = 1001;
+const int MAX = 1001;
 int n, m, q;
 
-vector<vector<int>> a(MAXN, vector<int>(MAXN));
-vector<vector<int>> t(4 * MAXN, vector<int>(4 * MAXN));
+vector<vector<int>> a(MAX, vector<int>(MAX));
+vector<vector<int>> t(4 * MAX, vector<int>(4 * MAX));
 
 void build_y(int vx, int lx, int rx, int vy, int ly, int ry) {
     if (ly == ry) {

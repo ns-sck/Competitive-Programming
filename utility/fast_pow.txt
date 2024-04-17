@@ -1,4 +1,4 @@
-int fastPow(int base, int exp) {
+int fp(int base, int exp) {
     int ans = 1;
     for(int i = 0; i < 45; i++) {
         if((1LL << i) & exp)
@@ -8,4 +8,11 @@ int fastPow(int base, int exp) {
         ans %= MOD;
     }
     return ans;
+}
+
+int fp(int a, int b) {
+    if (b == 0) return 1;
+    if (b & 1) return (a * fp(a, b - 1)) % MOD;
+    int half = fp(a, b / 2);
+    return (half * half) % MOD;
 }

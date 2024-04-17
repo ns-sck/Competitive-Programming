@@ -1,11 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int _max = 1e5;
+const int MAX = 1e5;
 
 int n, q;
-int st[_max];
-int lazy[_max];
+int st[MAX];
+int lazy[MAX];
 
 void push(int lo, int hi, int node) {
 	if (lazy[node] == 0) return;
@@ -58,19 +58,9 @@ int main() {
 		update_range(i, i, a);
 	}
 	while (q--) {
-		int qry;
-		cin >> qry;
-        print();
-		if (qry == 1) {
-			int x, y;
-			cin >> x >> y;
-			cout << query(x, y) << '\n';
-		}
-		else {
-            int x, y, z;
-			cin >> x >> y >> z;
-			update_range(x, y, z);
-		}
+		int x, y;
+		cin >> x >> y;
+		cout << query(x, y) << '\n';
 	}
 	return 0;
 }
