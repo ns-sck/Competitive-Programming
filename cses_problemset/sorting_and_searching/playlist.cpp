@@ -18,7 +18,18 @@ const ll INF = 1e18;
 const ll MAX = 2e5+1;
 
 void solve() {
-
+    int N; cin >> N;
+    vi v(N);
+    map<int, bool> mp;
+    for (auto& x : v) cin >> x;
+    int i = 0, j = 0, ans = 1;
+    mp[v[0]] = 1;
+    while (++j < N) {   
+        while (mp[v[j]] && i < j) mp[v[i++]] = 0;
+        ans = max(ans, j-i+1);
+        mp[v[j]] = 1;
+    }
+    cout << ans;
 }
 
 signed main () {

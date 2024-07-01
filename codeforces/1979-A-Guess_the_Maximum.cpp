@@ -18,7 +18,16 @@ const ll INF = 1e18;
 const ll MAX = 2e5+1;
 
 void solve() {
-
+    int n; cin >> n;
+    vi v(n);
+    for (int i = 0; i < n; ++i) cin >> v[i];
+    int mn = -INF;
+    int ans = INF;
+    for (int i = 1; i < n; ++i) {
+        mn = max(v[i], v[i-1]);
+        ans = min(mn, ans);
+    }
+    cout << ans-1 << '\n';
 }
 
 signed main () {
@@ -26,7 +35,7 @@ signed main () {
 	ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 	
 	int t = 1;
-	// cin >> t;
+	cin >> t;
 	while (t--) solve();
 
 	return 0;

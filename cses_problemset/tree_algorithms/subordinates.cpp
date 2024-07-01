@@ -17,8 +17,26 @@ const ll MOD = 1e9+7;
 const ll INF = 1e18;
 const ll MAX = 2e5+1;
 
-void solve() {
+vi adj[MAX];
+int s[MAX];
 
+void dfs(int u) {
+    int x = 0;
+    for (auto v : adj[u]) {
+        dfs(v);
+        x += s[v]+1;
+    }
+    s[u] = x;
+}
+
+void solve() {
+    int N; cin >> N;
+    for (int i = 2; i <= N; ++i) {
+        int p; cin >> p;
+        adj[p].pb(i);
+    }
+    dfs(1);
+    for (int i = 1; i <= N; ++i) cout << s[i] << ' ';
 }
 
 signed main () {

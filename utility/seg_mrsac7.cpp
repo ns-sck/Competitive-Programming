@@ -14,7 +14,7 @@ using namespace std;
 
 const ll MOD = 1e9+7;
 const ll INF = 1e18;
-const ll MAX = 20;
+const ll MAX = 3e3+1;
 const long double EPS = 1e-9; 
 
 ll st[2*MAX];
@@ -29,6 +29,7 @@ void upd(int k, int x){
         k >>= 1;
     }
 }
+
 ll qry(int a, int b){
     a += n, b += n;
     int ans = 0;
@@ -41,12 +42,17 @@ ll qry(int a, int b){
 }
 
 void solve() {
-    cin >> n;
-    vpi v(n);
-    for (int i = 0; i < n; ++i) cin >> v[i].first;
-    for (int i = 0; i < n; ++i) cin >> v[i].second;
-    for (int i = 0; i < n; ++i) upd(v[i].first-1, qry(0, v[i].first-1) + v[i].second);
-    cout << qry(0, n-1);
+    cin >> n >> q;
+    vi v(n);
+    for (int i = 0; i < n; ++i) {
+        int x; cin >> x;
+        upd(i, x);
+    }
+    while (q--) {
+        int l, r;
+        cin >> l >> r;
+        cout << qry(l-1, r-1) << ' ';
+    }
 }
 
 signed main () {

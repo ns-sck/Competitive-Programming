@@ -16,9 +16,24 @@ using namespace std;
 const ll MOD = 1e9+7;
 const ll INF = 1e18;
 const ll MAX = 2e5+1;
+const ld EPS = 1e-9; 
 
+int ans = 0;
+void f(vi& v) {
+    vi lis;
+    for (auto x : v) {
+        auto it = lower_bound(all(lis),x);
+        if (it == lis.end()) lis.pb(x);
+        else *it = x;
+    }
+    ans = lis.size();
+}
 void solve() {
-
+    int N; cin >> N;
+    vi v(N);
+    for (auto& x : v) cin >> x;
+    f(v);
+    cout << ans << '\n';
 }
 
 signed main () {

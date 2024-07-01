@@ -15,7 +15,7 @@ using namespace std;
 
 const ll MOD = 1e9+7;
 const ll INF = 1e18;
-const ll MAX = 10;
+const ll MAX = 1e5+5;
 const ld EPS = 1e-9; 
 
 #define lch 2*i
@@ -25,7 +25,7 @@ ll x[MAX], lazy[MAX];
 
 struct node {
     ll sum, sfx, prfx, mx;
-} st[40];
+} st[1<<19];
 
 void upd(int i, int n_l, int n_r, int q_l, int q_r, int val) 
 {
@@ -86,13 +86,6 @@ void solve() {
         cin >> x[i];
     }
     build(1, 0, N-1);
-    // upd(1, 0, N-1, 0, 0, 10);
-    // cout << query(1, 0, N-1, 0, N-1);
-    // cout << st[4].mx;
-    // cout << st[5].mx;
-    // cout << st[2].mx;
-    // cout << st[3].mx;
-    // cout << st[1].mx;
     while (Q--) {
         int k, u;
         cin >> k >> u;
@@ -105,9 +98,6 @@ void solve() {
 
     }
 }
-
-// 1 3 2 5 6 1 2 6
-// 1 3 2 0 1 -4 -3 1
 
 signed main () {
 

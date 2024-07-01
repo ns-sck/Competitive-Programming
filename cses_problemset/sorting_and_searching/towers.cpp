@@ -18,7 +18,21 @@ const ll INF = 1e18;
 const ll MAX = 2e5+1;
 
 void solve() {
-
+    int N; cin >> N;
+    multiset<int> s;
+    int ans = 0;
+    for (int i = 0; i < N; ++i) {
+        int x; cin >> x;
+        auto it = s.upper_bound(x);
+        if (it == s.end()) {
+            s.insert(x);
+            ++ans;
+        } else {
+            s.erase(it);
+            s.insert(x);
+        }
+    }
+    cout << ans;
 }
 
 signed main () {

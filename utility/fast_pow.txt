@@ -16,3 +16,17 @@ int fp(int a, int b) {
     int half = fp(a, b / 2);
     return (half * half) % MOD;
 }
+
+int fp(int base, int exp) {
+    int rval = 1LL;
+    while (exp) {
+        if (exp & 1) {
+            rval *= base;
+            rval %= MOD;
+        }
+        base *= base;
+        base %= MOD;
+        exp >>= 1;
+    }
+    return rval;
+}
