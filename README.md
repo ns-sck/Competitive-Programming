@@ -41,4 +41,8 @@ Algorithmic Challenges: A wide range of problems that focus on different aspects
 Regular Contests: Frequent contests that provide an opportunity to compete and learn from others.
 Leaderboard and Rankings: Participants can track their progress and see how they rank against others.
 Educational Resources: Provides tutorials and explanations to help users understand and solve problems more effectively.
+<<<<<<< HEAD
 Both Inzva and Algoleague are excellent platforms to enhance your competitive programming skills and network with like-minded individuals.
+=======
+Both Inzva and Algoleague are excellent platforms to enhance your competitive programming skills and network with like-minded individuals.
+>>>>>>> a699375c758d3665f41f5eef05ba1dd7d53fcbe7
