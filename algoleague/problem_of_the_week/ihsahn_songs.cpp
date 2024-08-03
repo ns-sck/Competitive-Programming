@@ -1,9 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-template<typename... T>
-void put(T&&... args) { ((cout << args << " "), ...); cout << '\n';}
-
 #define int long long
 #define ll long long
 #define ld long double
@@ -21,7 +18,17 @@ const ll INF = 1e18;
 const ll MAX = 2e5+1;
 
 void solve() {
-	
+    int N; cin >> N;
+    vi v(N);
+    for (int& x : v) cin >> x;
+    sort(all(v));
+    int ans = 0;
+    for (int i = 0; i < N; ++i) {
+        v[i] -= ans;
+        ans += v[i];        
+    }
+    cout << ans << '\n';
+
 }
 
 signed main () {

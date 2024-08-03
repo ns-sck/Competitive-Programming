@@ -1,9 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-template<typename... T>
-void put(T&&... args) { ((cout << args << " "), ...); cout << '\n';}
-
 #define int long long
 #define ll long long
 #define ld long double
@@ -18,10 +15,24 @@ void put(T&&... args) { ((cout << args << " "), ...); cout << '\n';}
 
 const ll MOD = 1e9+7;
 const ll INF = 1e18;
-const ll MAX = 2e5+1;
+const ll MAX = 1e5+1;
 
 void solve() {
-	
+    int N, M;
+    cin >> N >> M;
+    vi v(MAX);
+    int ans = 0;
+    for (int i = 0; i < N; ++i) {
+        int x; cin >> x;
+        if (M == 0) {
+            if (x == 0) ans += i;
+            else ans += v[0];
+        } else {
+            if (x != 0 && M % x == 0) ans += v[M/x];
+        }
+        ++v[x];
+    }
+    cout << ans << '\n';
 }
 
 signed main () {

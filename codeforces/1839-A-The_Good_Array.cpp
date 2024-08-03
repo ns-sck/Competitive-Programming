@@ -21,7 +21,22 @@ const ll INF = 1e18;
 const ll MAX = 2e5+1;
 
 void solve() {
-	
+	int N, K;
+    cin >> N >> K;
+    vi v(101);
+    int c = 0;
+    for (int i = 1; i <= N; ++i) {
+        if ((i-1) / K + 1 > c) v[i] = 1;
+        c += v[i];
+    }
+    c = 0;
+    for (int i = 1; i <= N; ++i) {
+        if ((i-1) / K + 1 > c) v[N-i+1] = 1;
+        c += v[N-i+1];
+    }
+    int ans = 0;
+    for (int i = 1; i <= N; ++i) ans += v[i];
+    cout << ans << '\n';
 }
 
 signed main () {
@@ -29,7 +44,7 @@ signed main () {
 	ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 
 	int t = 1;
-	// cin >> t;
+	cin >> t;
 	while (t--) solve();
 
 	return 0;

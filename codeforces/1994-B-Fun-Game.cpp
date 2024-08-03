@@ -21,7 +21,27 @@ const ll INF = 1e18;
 const ll MAX = 2e5+1;
 
 void solve() {
-	
+    int N; cin >> N;
+    string S, T; 
+    cin >> S >> T;
+
+    // if (S[0] == '1') {
+    //     cout << "YES\n";
+    //     return;
+    // }
+
+    int f = 0;
+    for (int i = 0; i < S.size(); ++i) {
+        if (S[i] == '1') {
+            f = i;
+            break;
+        }
+        if (S[i] != T[i]) {
+            cout << "NO\n";
+            return;
+        }
+    }
+    cout << "YES\n";
 }
 
 signed main () {
@@ -29,7 +49,7 @@ signed main () {
 	ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 
 	int t = 1;
-	// cin >> t;
+	cin >> t;
 	while (t--) solve();
 
 	return 0;

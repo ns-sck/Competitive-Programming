@@ -1,7 +1,7 @@
 n = 5
 
-profit = [5,2,6]
-weights = [2,3,1]
+profit = [8,5,6,4,5,5,9,8]
+weights = [3,4,3,2,1,3,2,1]
 
 
 len_row = len(profit)+1

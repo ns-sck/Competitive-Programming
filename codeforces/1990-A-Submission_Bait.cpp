@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+template<typename... T>
+void put(T&&... args) { ((cout << args << " "), ...); cout << '\n';}
+
 #define int long long
 #define ll long long
 #define ld long double
@@ -18,29 +21,34 @@ const ll INF = 1e18;
 const ll MAX = 2e5+1;
 
 void solve() {
-    int N, A, B;
-    cin >> N >> A >> B;
-    // b-i+1 > a
-    // i < b-a+1
-    int ans = 0;
-    int i = min(N, B-A);
-    if (i < 1) cout << N*A << '\n';
-    else {
-        ans += i*((double)(B+(B-i)+1)/2.0);
-        ans += (N-i)*A;
-        cout << ans << '\n';
+	int N; cin >> N;
+    vi v(N);
+    for (auto& x : v) cin >> x;
+    sort(all(v));
+    int c = 1;
+    for (int i = N-2; ~i; --i) {
+        if (v[i] == v[i+1]) {
+            ++c;
+            continue;
+        } else {
+            if (c%2) {
+                cout << "YES\n";
+                return;
+            }
+            c = 1; 
+        }
     }
-    // 5 4 4 4
-    // 10 9 8 7 6 5 5 5 5 5
-    // 9 8 7 6 5
-    // 5 5 9
-    // 11 10 9 8 7
+    if (c%2) {
+        cout << "YES\n";
+        return;
+    }
+    cout << "NO\n";
 }
 
 signed main () {
 
 	ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-	
+
 	int t = 1;
 	cin >> t;
 	while (t--) solve();

@@ -21,7 +21,18 @@ const ll INF = 1e18;
 const ll MAX = 2e5+1;
 
 void solve() {
-	
+	int N, K;
+    cin >> N >> K;
+    vector<string> g(N);
+    for (int i = 0; i < N; ++i) {
+        cin >> g[i];
+    }
+    for (int i = 0; i < N; i += K) {
+        for (int j = 0; j < N; j += K) {
+            cout << g[i][j];
+        }
+        cout << '\n';
+    }
 }
 
 signed main () {
@@ -29,7 +40,7 @@ signed main () {
 	ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 
 	int t = 1;
-	// cin >> t;
+	cin >> t;
 	while (t--) solve();
 
 	return 0;

@@ -21,7 +21,18 @@ const ll INF = 1e18;
 const ll MAX = 2e5+1;
 
 void solve() {
-	
+	string S; cin >> S;
+    int c = 0, N = S.size();
+    map<int, int> mp;
+    int ans = 0;
+    mp[0] = 1;
+    for (int i = 0; i < N; ++i) {
+        c += (S[i] == '1' ? 1 : -1);
+        int add = mp[c] * (N - i); 
+        ans = (ans + add) % MOD;
+        mp[c] += i+2;
+    }
+    cout << ans << '\n';
 }
 
 signed main () {
@@ -29,7 +40,7 @@ signed main () {
 	ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 
 	int t = 1;
-	// cin >> t;
+	cin >> t;
 	while (t--) solve();
 
 	return 0;

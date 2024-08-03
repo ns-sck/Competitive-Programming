@@ -19,11 +19,16 @@ const ll MAX = 2e5+1;
 
 void solve() {
     int N; cin >> N;
-    vi v(N);
-    for (auto& x : v) cin >> x;
-    int ans = v[N-1], b = 0;
-    for (int i = N-2; ~i; --i) b = max(b, v[i]);
-    cout << ans+b << '\n';
+    int ans = 0;
+    vpi v(N);
+    for (auto& x : v) cin >> x.first >> x.second;
+    sort(all(v));
+    int t = 0;
+    for (pi& pr : v) {
+        t += pr.first;
+        ans += pr.second - t;
+    }
+    cout << ans << '\n';
 }
 
 signed main () {
@@ -31,7 +36,7 @@ signed main () {
 	ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 	
 	int t = 1;
-	cin >> t;
+	// cin >> t;
 	while (t--) solve();
 
 	return 0;
