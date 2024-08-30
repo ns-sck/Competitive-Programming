@@ -20,7 +20,17 @@ const ll INF = 1e18;
 const ll MAX = 2e5+1;
 
 void solve() {
+    int N; cin >> N;
+    vi v(N);
+    for (int &x : v) cin >> x;
+    if (N > 2) {
+        cout << "NO\n";
+        return;
+    }
     
+    if (N == 2 && abs(v[0] - v[1]) == 1) {
+        cout << "NO\n";
+    } else cout << "YES\n";
 }
 
 signed main () {
@@ -29,7 +39,7 @@ signed main () {
     cout.tie(0);
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--) solve();
 
     return 0;

@@ -20,7 +20,17 @@ const ll INF = 1e18;
 const ll MAX = 2e5+1;
 
 void solve() {
-    
+    int N; cin >> N;
+    map<int, int> mp;
+    for (int i = 0; i < N; ++i) {
+        int x; cin >> x;
+        ++mp[x];
+    }
+    int x = 0;
+    for (auto [a, b] : mp) {
+        x = max(x, b);
+    }
+    cout << N - x << '\n';
 }
 
 signed main () {
@@ -29,7 +39,7 @@ signed main () {
     cout.tie(0);
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--) solve();
 
     return 0;

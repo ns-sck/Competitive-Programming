@@ -6,6 +6,7 @@ void put(T&&... args) { ((cout << args << " "), ...); cout << '\n';}
 
 #define int long long
 #define ll long long
+#define ld long double
 #define pi pair<int, int>
 #define vi vector<int>
 #define vvi vector<vector<int>>
@@ -20,17 +21,29 @@ const ll INF = 1e18;
 const ll MAX = 2e5+1;
 
 void solve() {
-    
+	int N; cin >> N;
+    string S; cin >> S;
+    map<char, int> mp;
+    for (int i = 0; i < S.length(); ++i) {
+        ++mp[S[i]];
+    }
+    int q = mp['?'];
+    int ans = 0;
+    for (auto& [x, c] : mp) {
+        if (x == '?') continue;
+        ans += min(c, N);
+    }
+    cout << ans << '\n';
+
 }
 
 signed main () {
-    ios::sync_with_stdio(0); 
-    cin.tie(0); 
-    cout.tie(0);
 
-    int t = 1;
-    // cin >> t;
-    while (t--) solve();
+	ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 
-    return 0;
+	int t = 1;
+	cin >> t;
+	while (t--) solve();
+
+	return 0;
 }
