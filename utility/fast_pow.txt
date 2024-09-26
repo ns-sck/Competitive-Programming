@@ -30,4 +30,3 @@ int fp(int base, int exp) {
     }
     return rval;
 }
-asdasd

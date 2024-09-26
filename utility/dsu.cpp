@@ -7,9 +7,9 @@ using namespace std;
 #define mii map<int, int>
 #define ios ios::sync_with_stdio(0);cin.tie(0);cout.tie(0)
 const int MOD = 1e9+7;
-const int _max = 2e5+1;
-int par[_max];
-int sz[_max];
+const int MAX = 2e5+1;
+int par[MAX];
+int sz[MAX];
 
 int find(int u) {
     return u == par[u] ? u : par[u] = find(par[u]);
@@ -28,7 +28,7 @@ int32_t main() {
     ios;
     int n, m;
     cin >> n >> m;
-    vii adj(_max, vi());
+    vii adj(MAX, vi());
     for (int i = 0; i < m; ++i) {
         int a, b;
         cin >> a >> b;

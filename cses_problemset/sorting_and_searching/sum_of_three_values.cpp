@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+template<typename... T>
+void put(T&&... args) { ((cout << args << " "), ...); cout << '\n';}
+
 #define int long long
 #define ll long long
 #define ld long double
@@ -18,27 +21,33 @@ const ll INF = 1e18;
 const ll MAX = 2e5+1;
 
 void solve() {
-    int N, M;
-    cin >> N >> M;
-    vi v(N);
+    int N, X;
+    cin >> N >> X;
+    
+    vi v(N), a, b(N);
     for (int& x : v) cin >> x;
+
+    iota(all(b), 0);
+    sort(all(b),[&](int i, int j){
+        return v[i] < v[j];
+    });
     sort(all(v));
-    for (int i = 0; i < N; ++i) {
-        int j = 0, k = N-1;
-        while (j < k) {
-            int t = v[j]+v[k];
-            if (j == i || k == i) {
-                t+v[i] > M ? --k : ++j;
-                continue;
-            }
-            if (t > M-v[i]) --k;
-            else if (t < M-v[i]) ++j;
-            else {
-                cout << i+1 << ' ' << j+1 << ' ' << k+1 << '\n';
+
+    for (int i = N-1; i >= 2; --i) a.pb(v[i]);
+
+    for (int i = 1; i < N - 1; ++i) {
+        for (int j = 0; j < i; ++j) {
+            int t = X - v[i] - v[j];
+            if (t <= 0) break;
+            auto it = lower_bound(a.begin(), a.end(), t, greater<int>());
+            if (it != a.end() && *it == t) {
+                put(b[j] + 1, b[i] + 1, b[a.end() - it + i] + 1);
                 return;
             }
         }
+        a.pop_back();
     }
+
     cout << "IMPOSSIBLE";
 }
 
