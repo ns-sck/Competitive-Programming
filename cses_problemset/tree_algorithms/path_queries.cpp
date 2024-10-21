@@ -130,6 +130,7 @@ void solve() {
     for (int i = 0; i < 2 * N; ++i) {
         upd(1, i, i, x[i]);
     }
+    
 
    while (Q--) {
         int a; cin >> a;

@@ -1,58 +1,111 @@
-vector<bool> visited;
-
-void dfs(int v, vector<vector<int>> const& adj, vector<int> &output) {
-    visited[v] = true;
-    for (auto u : adj[v])
-        if (!visited[u])
-            dfs(u, adj, output);
+#include <bits/stdc++.h>
+using namespace std;
+ 
+template<typename... T>
+void put(T&&... args) { ((cout << args << " "), ...); cout << '\n';}
+ 
+#define int long long
+#define ll long long
+#define pi pair<int, int>
+#define vi vector<int>
+#define vvi vector<vector<int>>
+#define vpi vector<pi>
+#define pb push_back
+#define ar array
+#define all(a) (a).begin(), (a).end()
+#define rall(a) (a).rbegin(), (a).rend()
+ 
+const ll MOD = 1e9+7;
+const ll INF = 1e18;
+const ll MAX = 2e5+1;
+ 
+int N, M;
+bool vis[MAX];
+vi adj[MAX];
+vi rev[MAX];
+vi adj_cond[MAX];
+vvi comps;
+ 
+void dfs(int v, vi* a, vi& output) {
+    vis[v] = true;
+    for (auto u : a[v])
+        if (!vis[u])
+            dfs(u, a, output);
     output.push_back(v);
 }
-
-// input: adj -- adjacency list of G
-// output: components -- the strongy connected components in G
-// output: adj_cond -- adjacency list of G^SCC (by root vertices)
-void strongy_connected_components(vector<vector<int>> const& adj,
-                                  vector<vector<int>> &components,
-                                  vector<vector<int>> &adj_cond) {
-    int n = adj.size();
-    components.clear(), adj_cond.clear();
-
-    vector<int> order; // will be a sorted list of G's vertices by exit time
-
-    visited.assign(n, false);
-
-    // first series of depth first searches
-    for (int i = 0; i < n; i++)
-        if (!visited[i])
+ 
+void scc() {
+ 
+    vi order;
+ 
+    for (int i = 1; i <= N; i++)
+        if (!vis[i])
             dfs(i, adj, order);
-
-    // create adjacency list of G^T
-    vector<vector<int>> adj_rev(n);
-    for (int v = 0; v < n; v++)
+ 
+    for (int v = 1; v <= N; v++)
         for (int u : adj[v])
-            adj_rev[u].push_back(v);
-
-    visited.assign(n, false);
-    reverse(order.begin(), order.end());
-
-    vector<int> roots(n, 0); // gives the root vertex of a vertex's SCC
-
-    // second series of depth first searches
+            rev[u].push_back(v);
+ 
+    memset(vis, 0, sizeof(vis));
+    reverse(all(order));
+ 
+    vi roots(N + 1);
+ 
     for (auto v : order)
-        if (!visited[v]) {
-            std::vector<int> component;
-            dfs(v, adj_rev, component);
-            sort(component.begin(), component.end());
-            components.push_back(component);
-            int root = component.front();
-            for (auto u : component)
+        if (!vis[v]) {
+            vi comp;
+            dfs(v, rev, comp);
+            sort(all(comp));
+            comps.push_back(comp);
+            int root = comp.front();
+            for (auto u : comp)
                 roots[u] = root;
         }
-
-    // add edges to condensation graph
-    adj_cond.assign(n, {});
-    for (int v = 0; v < n; v++)
+ 
+ 
+    for (int v = 1; v <= N; v++)
         for (auto u : adj[v])
             if (roots[v] != roots[u])
                 adj_cond[roots[v]].push_back(roots[u]);
+}
+ 
+void solve() {
+    cin >> N >> M;
+    
+    while (M--) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].pb(v);
+    }
+ 
+    scc();
+ 
+    memset(vis, 0, sizeof(vis));
+    int ans[N+1];
+ 
+    int c = 1;
+    for (int i = 0; i < comps.size(); ++i) {
+        for (int& u : comps[i]) {
+            ans[u] = c;
+        }
+        ++c;
+    }
+ 
+    put(comps.size());
+    
+    for (int i = 1; i <= N; ++i) {
+        cout << ans[i] << ' ';
+    }
+}
+ 
+signed main () {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+ 
+    int t = 1;
+    // cin >> t;
+    while (t--) solve();
+ 
+    return 0;
 }

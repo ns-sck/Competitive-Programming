@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+template<typename... T>
+void put(T&&... args) { ((cout << args << " "), ...); cout << '\n';}
+
+#define int long long
+#define ll long long
+#define pi pair<int, int>
+#define vi vector<int>
+#define vvi vector<vector<int>>
+#define vpi vector<pi>
+#define pb push_back
+#define ar array
+#define all(a) (a).begin(), (a).end()
+#define rall(a) (a).rbegin(), (a).rend()
+
+const ll MOD = 1e9+7;
+const ll INF = 1e18;
+const ll MAX = 2e5+1;
+
+void solve() {
+    string A, B;
+    cin >> A >> B;
+    int a = A.size(), b = B.size();
+    int i = 0, j = 0;
+    while (i < a && j < b && A[i] == B[j]) ++i, ++j;
+
+    int ans = i;
+    ans += a - i + b - j + (j != 0);
+    put(ans);
+}
+
+signed main () {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    int t = 1;
+    cin >> t;
+    while (t--) solve();
+
+    return 0;
+}
