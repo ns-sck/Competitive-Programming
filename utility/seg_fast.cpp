@@ -17,11 +17,11 @@ const ll INF = 1e18;
 const ll MAX = 3e3+1;
 const long double EPS = 1e-9; 
 
-ll st[2*MAX];
-int n, q;
+vi st;
+int N, Q;
 
 void upd(int k, int x){
-    k += n;
+    k += N;
     st[k] = x; 
     k >>= 1;
     while(k >= 1){
@@ -31,7 +31,7 @@ void upd(int k, int x){
 }
 
 ll qry(int a, int b){
-    a += n, b += n;
+    a += N, b += N;
     int ans = 0;
     while(a <= b){
         if (a&1) ans = max(ans, st[a++]);

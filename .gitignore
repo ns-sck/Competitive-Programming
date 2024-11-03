@@ -1,5 +1,3 @@
-.vscode
-input.txt
-output.txt
-exec
-algoleague\x.cpp
+/.vscode/*
+/exec/*
+algoleague/x.cpp

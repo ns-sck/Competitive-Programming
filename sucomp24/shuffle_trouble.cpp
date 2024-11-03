@@ -32,6 +32,7 @@ void solve() {
         int sh = 5 - i;
         dp[0][1 << sh] = 1;
     }
+    
 
     for (int i = 1; i < N; ++i) {
         for (int j = 0; j < (1 << bits); ++j) {
@@ -47,7 +48,8 @@ void solve() {
                 }
             }
         }
-    } 
+    }
+
     int ans = 0;
 
     for (int j = 0; j < (1 << bits); ++j) {

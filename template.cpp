@@ -1,23 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-template<typename... T>
-void put(T&&... args) { ((cout << args << " "), ...); cout << '\n';}
-
 #define int long long
-#define ll long long
-#define pi pair<int, int>
-#define vi vector<int>
-#define vvi vector<vector<int>>
-#define vpi vector<pi>
-#define pb push_back
-#define ar array
-#define all(a) (a).begin(), (a).end()
-#define rall(a) (a).rbegin(), (a).rend()
-
-const ll MOD = 1e9+7;
-const ll INF = 1e18;
-const ll MAX = 2e5+1;
+const int MOD = 1e9+7;
 
 void solve() {
     

@@ -1,9 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+template<typename... T>
+void put(T&&... args) { ((cout << args << " "), ...); cout << '\n';}
+
 #define int long long
 #define ll long long
-#define ld long double
 #define pi pair<int, int>
 #define vi vector<int>
 #define vvi vector<vector<int>>
@@ -17,48 +19,26 @@ const ll MOD = 1e9+7;
 const ll INF = 1e18;
 const ll MAX = 2e5+1;
 
-int N;
-int fw[MAX];
-
-void upd(int x, int v) {
-    ++x; 
-    for (; x < MAX; x += x & -x) fw[x] += v;
-    // 1000
-    // 00000000001000 + 1
-    //               
-}
-
-int get(int x) {
-    ++x; 
-    int ans = 0;
-    for (; x > 0; x -= x & -x) ans += fw[x];
-    return ans;
-}
-
 void solve() {
-    cin >> N;
-    vi v(N);
+    int N; cin >> N;
+    int a = 0, b = 0;
     for (int i = 0; i < N; ++i) {
-        cin >> v[i];
+        int u, v;
+        cin >> u >> v;
+        a = max(a, u);
+        b = max(b, v);
     }
 
-    int ans = 0;
-
-    for (int i = N - 1; i >= 0; --i) {
-        ans += get(v[i] - 1); 
-        upd(v[i], 1);
-    }
-
-    cout << ans << '\n';
+    put((a + b) << 1);
 }
 
-signed main() {
+signed main () {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--) solve();
 
     return 0;
