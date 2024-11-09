@@ -1,23 +1,20 @@
-#include <iostream>
-#include <random>
+#include <bits/stdc++.h>
+using namespace std;
 
 int main() {
-    // Seed with a real random value, if available
-    std::random_device rd;
+    random_device rd;
+    mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
-    // Initialize Mersenne Twister with the random seed
-    std::mt19937 gen(rd());
+    vector<string> v = {"10at", "abd", "ns", "boz", "saro", "ert"};
+    uniform_int_distribution<> dis(0, 1e9); 
 
-    // Define the range for the random numbers (optional, you can modify as needed)
-    std::uniform_int_distribution<> dis(1, 5); // Generates numbers in the range [1, 100]
-
-    // Generate two random numbers
-    int random_num1 = dis(gen);
-    int random_num2 = dis(gen);
-
-    // Output the random numbers
-    std::cout << "Random Number 1: " << random_num1 << std::endl;
-    std::cout << "Random Number 2: " << random_num2 << std::endl;
+    for (int i = 0; i < 3; ++i) {
+        int x = dis(rng) % (6 - i);
+        cout << v[x] << '\n';
+        v.erase(find(v.begin(), v.end(), v[x]));
+    }
+    cout << '\n';
+    for (auto s : v) cout << s << '\n';
 
     return 0;
 }
