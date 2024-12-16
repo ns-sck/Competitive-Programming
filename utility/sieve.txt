@@ -1,14 +1,17 @@
-ll lp[MAX+1];
-vector<ll> pr;
+vector<int> spf(MAX);
+vector<int> prs;
 
 void sieve() {
-	for(ll i = 2; i < MAX; i++) {
-		if(!lp[i]) {
-			lp[i] = i;
-			pr.push_back(i);
+	for (int i = 2; i < MAX; ++i) {
+		if (spf[i]) {
+			continue;
 		}
-		for(int j = 0; j < pr.size() && pr[j] <= lp[i] && i * pr[j] < MAX; j++) {
-			lp[i * pr[j]] = pr[j];
+		spf[i] = i;
+		prs.emplace_back(i);
+		for (int j = i * i; j < MAX; j += i) {
+			if (!spf[j]) {
+				spf[j] = i;
+			}
 		}
 	}
 }

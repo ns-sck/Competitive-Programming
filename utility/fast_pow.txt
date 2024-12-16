@@ -1,32 +1,11 @@
-int fp(int base, int exp) {
-    int ans = 1;
-    for(int i = 0; i < 45; i++) {
-        if((1LL << i) & exp)
-            ans *= base;
-        base *= base;
-        base %= MOD;
-        ans %= MOD;
-    }
-    return ans;
-}
-
 int fp(int a, int b) {
-    if (b == 0) return 1;
-    if (b & 1) return (a * fp(a, b - 1)) % MOD;
-    int half = fp(a, b / 2);
-    return (half * half) % MOD;
-}
-
-int fp(int base, int exp) {
-    int rval = 1LL;
-    while (exp) {
-        if (exp & 1) {
-            rval *= base;
-            rval %= MOD;
-        }
-        base *= base;
-        base %= MOD;
-        exp >>= 1;
+  int res = 1;
+  while (b > 0) {
+    if (b & 1) {
+      res = res * a % MOD;
     }
-    return rval;
+    a = a * a % MOD;
+    b >>= 1;
+  }
+  return res;
 }

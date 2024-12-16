@@ -17,39 +17,59 @@ const ll MOD = 1e9+7;
 const ll INF = 1e18;
 const ll MAX = 2e5+1;
 
-int N;
-int fw[MAX];
+class BIT {
+public:
+    int N;
+    vector<int> B1, B2;
 
-void upd(int x, int v) {
-    ++x; 
-    for (; x < MAX; x += x & -x) fw[x] += v;
-    // 1000
-    // 00000000001000 + 1
-    //               
-}
+    BIT(int size) : N(size), B1(size + 1, 0), B2(size + 1, 0) {}
 
-int get(int x) {
-    ++x; 
-    int ans = 0;
-    for (; x > 0; x -= x & -x) ans += fw[x];
-    return ans;
-}
+    void add(vector<int>& b, int idx, int x) {
+        for (; idx <= N; idx += idx & -idx)
+            b[idx] += x;
+    }
+
+    void range_add(int l, int r, int x) {
+        add(B1, l, x);
+        add(B1, r + 1, -x);
+        add(B2, l, x * (l - 1));
+        add(B2, r + 1, -x * r);
+    }
+
+    int sum(const vector<int>& b, int idx) {
+        int total = 0;
+        for (; idx > 0; idx -= idx & -idx)
+            total += b[idx];
+        return total;
+    }
+
+    int prefix_sum(int idx) {
+        return sum(B1, idx) * idx - sum(B2, idx);
+    }
+
+    int range_sum(int l, int r) {
+        return prefix_sum(r) - prefix_sum(l - 1);
+    }
+};
 
 void solve() {
-    cin >> N;
-    vi v(N);
-    for (int i = 0; i < N; ++i) {
-        cin >> v[i];
+    int N; cin >> N;
+    BIT bit(N);
+    for (int i = 1; i <= N; ++i) {
+        int x; cin >> x;
+        bit.range_add(i, i, x);
+    }
+    while (1) {
+        vector<int> a(N);
+        for (int i = 0; i < N; ++i) {
+            a[i] = bit.range_sum(i + 1, i + 1);
+        }
+        int l, r, x;
+        cin >> l >> r >> x;
+        bit.range_add(l, r, x);
     }
 
-    int ans = 0;
-
-    for (int i = N - 1; i >= 0; --i) {
-        ans += get(v[i] - 1); 
-        upd(v[i], 1);
-    }
-
-    cout << ans << '\n';
+    // cout << ans << '\n';
 }
 
 signed main() {
