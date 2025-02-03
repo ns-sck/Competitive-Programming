@@ -3,15 +3,17 @@ using namespace std;
 
 #define int int64_t
 
-// tourist
 class dsu {
  public:
   vector<int> p;
+  vector<int> sz;
   int n;
 
   dsu(int _n) : n(_n) {
     p.resize(n);
+    sz.resize(n);
     iota(p.begin(), p.end(), 0);
+    fill(sz.begin(), sz.end(), 1);
   }
  
   inline int get(int x) {
@@ -21,8 +23,10 @@ class dsu {
   inline bool unite(int x, int y) {
     x = get(x);
     y = get(y);
+    if (sz[x] < sz[y]) swap(x, y);
     if (x != y) {
-      p[x] = y;
+      p[y] = x;
+      sz[x] += sz[y];
       return true;
     }
     return false;
