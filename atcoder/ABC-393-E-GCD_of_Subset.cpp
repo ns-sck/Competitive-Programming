@@ -4,10 +4,12 @@ using namespace std;
 #define int int64_t
 
 void solve() {
-  
+  int x;
+  cin >> x;
+  cout << x << '\n';
 }
 
-int main () {
+signed main () {
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
   int t = 1;
