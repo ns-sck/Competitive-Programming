@@ -2,7 +2,6 @@
 using namespace std;
 
 int main() {
-    random_device rd;
     mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
     vector<string> v = {"10at", "abd", "ns", "boz", "saro", "ert"};

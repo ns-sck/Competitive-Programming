@@ -1,10 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+constexpr int M = 1e9 + 7;
 #define int int64_t
 void solve() {
-  int N, K, M;
-  cin >> N >> K >> M;
+  int N, K;
+  cin >> N >> K;
   int ans = 1;
   for (int i = 0; i < N; ++i) {
     ans = ans * K % M;

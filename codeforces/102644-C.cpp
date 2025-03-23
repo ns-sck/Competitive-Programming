@@ -56,11 +56,14 @@ void solve() {
     cout << 0 << '\n';
     return;
   }
-  vector<vector<int>> mtx = {{0, 1}, {1, 1}};
-  auto exp = power(mtx, N - 1);
-  vector<vector<int>> start = {{1}, {1}};
-  vector<vector<int>> last = exp * start;
-  cout << last[0][0] << '\n';
+
+  for (int i = 0; i < N; ++i) {
+    vector<vector<int>> mtx = {{0, 1}, {1, 1}};
+    auto exp = power(mtx, i);
+    vector<vector<int>> start = {{1}, {1}};
+    vector<vector<int>> last = exp * start;
+    cout << i << ": " << last[0][0] << '\n';
+  }
 }
 
 signed main () {

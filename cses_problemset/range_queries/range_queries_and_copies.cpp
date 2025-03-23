@@ -40,9 +40,9 @@ struct SimpleSegmentTree {
   }
 
   void apply(Info& a, int val) {
-    a.sum = val;
-    a.mn = val;
-    a.mx = val;
+    a.sum += val;
+    a.mn += val;
+    a.mx += val;
   }
 
   void modify(int i, int val) {
@@ -89,65 +89,63 @@ struct SimpleSegmentTree {
 };
 
 void solve() {
-  int N, K;
-  cin >> N >> K;
-  // N = 11, K = 3;
+  int N, Q;
+  cin >> N >> Q;
   vector<int> arr(N);
-  for (int& x : arr) cin >> x;
-  // for (int i = 0; i < 8; ++i) {
-  //   arr[i] = rand() % 31;
-  // }
-  vector<int> dp(N);
   vector<Info> info(N);
   for (int i = 0; i < N; ++i) {
-    info[i] = 0;
+    cin >> arr[i];
+    info[i] = arr[i];
   }
+  vector<vector<vector<int>>> qrs(N);
+  int idx = 1, time = 0;
+  for (int i = 0; i < Q; ++i) {
+    int qt, k, a, b;
+    cin >> qt;
+    if (qt == 1) {
+      cin >> k >> a >> b;
+      qrs[k - 1].push_back({1, a - 1, b});
+    } else if (qt == 2) {
+      cin >> k >> a >> b;
+      qrs[k - 1].push_back({2, time++, a - 1, b - 1});
+    } else {
+      cin >> k;
+      qrs[k - 1].push_back({3, idx++});
+    }
+  }
+  vector<int> ans(time);
   SimpleSegmentTree st(info);
-  for (int i = N - 1 - K; ~i; --i) {
-    int lo = 1, hi = N / 2, can = 1;
-    while (lo <= hi) {
-      int mi = (lo + hi) >> 1;
-      int empty = N - i - 1 - mi + 1;
-      if (empty / K >= mi) {
-        can = mi;
-        lo = mi + 1;
-      } else {
-        hi = mi - 1;
-      }
+  auto dfs = [&](auto&& self, int k, int i) -> void {
+    if (i == qrs[k].size()) {
+      return;
     }
-    int best = st.query(0, can - 1).mx;
-    int old = st.query(can, can).mx;
-    st.modify(can, max(arr[i] + best, old));
-    if (can > 1) {
-      int best2 = st.query(0, can - 2).mx;
-      int old2 = st.query(0, can - 1).mx;
-      st.modify(can - 1, max(arr[i] + best, old));
+    int qt = qrs[k][i][0];
+    if (qt == 1) {
+      int l = qrs[k][i][1], x = qrs[k][i][2] - st.query(l, l).sum;
+      st.modify(l, x);
+      self(self, k, i + 1);
+      st.modify(l, -x);
+    } else if (qt == 2) {
+      int l = qrs[k][i][2], r = qrs[k][i][3], t = qrs[k][i][1];
+      ans[t] = st.query(l, r).sum;
+      self(self, k, i + 1);
+    } else {
+      int m = qrs[k][i][1];
+      self(self, m, 0);
+      self(self, k, i + 1);
     }
+  };
+  dfs(dfs, 0, 0);
+  for (int i = 0; i < time; ++i) {
+    cout << ans[i] << '\n';
   }
-  int ans = st.query(0, N - 1).mx;
-  // auto dfs = [&](auto&& self, int i, int r, int t) {
-  //   if (i == N) {
-  //     if (r > 0) t = 0;
-  //     return t;
-  //   }
-  //   int a = self(self, i + 1, max((int) 0, r - 1), t);
-  //   a = max(a, self(self, i + 1, r + K, t + arr[i]));
-  // };
-  // int ans3 = dfs(dfs, 0, 0, 0);
-  // cout << ans3 << ' ';
-  cout << ans << '\n';
-  // if (ans3 != ans) {
-  //   for (int i = 0; i < N; ++i) {
-  //     cout << arr[i] << " \n"[i == N - 1];
-  //   }
-  // }
 }
 
 signed main () {
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
   int t = 1;
-  cin >> t;
+  // cin >> t;
   while (t--) {
     solve();
   }

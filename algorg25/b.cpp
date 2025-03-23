@@ -4,7 +4,7 @@ using namespace std;
 #define int int64_t
 
 void solve() {
-
+  
 }
 
 signed main () {

@@ -40,9 +40,9 @@ struct SimpleSegmentTree {
   }
 
   void apply(Info& a, int val) {
-    a.sum = val;
-    a.mn = val;
-    a.mx = val;
+    a.sum += val;
+    a.mn += val;
+    a.mx += val;
   }
 
   void modify(int i, int val) {
@@ -56,16 +56,16 @@ struct SimpleSegmentTree {
   }
 
   Info query(int l, int r) {
-    l += n;
+    l += n; 
     r += n;
-    Info res;
+    Info res; 
     while (l <= r) {
       if (l & 1) {
         res = res.unite(info[l++]);
       }
       if (~r & 1) {
         res = res.unite(info[r--]);
-      }
+      } 
       l >>= 1, r >>= 1;
     }
     return res;
@@ -78,7 +78,7 @@ struct SimpleSegmentTree {
     }
     if (nl == nr) {
       return nr;
-    }
+    } 
     int m = (nl + nr) >> 1;
     int res = bs(ql, qr, x, lch, nl, m);
     if (res != -1) {
@@ -89,58 +89,24 @@ struct SimpleSegmentTree {
 };
 
 void solve() {
-  int N, K;
-  cin >> N >> K;
-  // N = 11, K = 3;
+  int N, Q;
+  cin >> N >> Q;
   vector<int> arr(N);
-  for (int& x : arr) cin >> x;
-  // for (int i = 0; i < 8; ++i) {
-  //   arr[i] = rand() % 31;
-  // }
-  vector<int> dp(N);
-  vector<Info> info(N);
+  vector<Info> left(N), right(N);
   for (int i = 0; i < N; ++i) {
-    info[i] = 0;
+    cin >> arr[i];
+    left[i] = arr[i] + i;
+    right[i] = arr[i] - i;
   }
-  SimpleSegmentTree st(info);
-  for (int i = N - 1 - K; ~i; --i) {
-    int lo = 1, hi = N / 2, can = 1;
-    while (lo <= hi) {
-      int mi = (lo + hi) >> 1;
-      int empty = N - i - 1 - mi + 1;
-      if (empty / K >= mi) {
-        can = mi;
-        lo = mi + 1;
-      } else {
-        hi = mi - 1;
-      }
-    }
-    int best = st.query(0, can - 1).mx;
-    int old = st.query(can, can).mx;
-    st.modify(can, max(arr[i] + best, old));
-    if (can > 1) {
-      int best2 = st.query(0, can - 2).mx;
-      int old2 = st.query(0, can - 1).mx;
-      st.modify(can - 1, max(arr[i] + best, old));
-    }
+  SimpleSegmentTree stl(left), str(right);
+  while (Q--) {
+    int l, r;
+    cin >> l >> r;
+    --l, --r;
+    int mid = (l + r) >> 1;
+    int a = stl.query(mid, r).sum;
+    int b = str.query(l, mid).sum + 
   }
-  int ans = st.query(0, N - 1).mx;
-  // auto dfs = [&](auto&& self, int i, int r, int t) {
-  //   if (i == N) {
-  //     if (r > 0) t = 0;
-  //     return t;
-  //   }
-  //   int a = self(self, i + 1, max((int) 0, r - 1), t);
-  //   a = max(a, self(self, i + 1, r + K, t + arr[i]));
-  // };
-  // int ans3 = dfs(dfs, 0, 0, 0);
-  // cout << ans3 << ' ';
-  cout << ans << '\n';
-  // if (ans3 != ans) {
-  //   for (int i = 0; i < N; ++i) {
-  //     cout << arr[i] << " \n"[i == N - 1];
-  //   }
-  // }
 }
 
 signed main () {
