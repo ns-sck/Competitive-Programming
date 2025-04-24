@@ -32,36 +32,39 @@ class dsu {
     return false;
   }
 };
-
+/*
+9 12
+1 2 11
+1 3 7
+1 5 8
+5 6 4
+2 7 9
+6 7 6
+4 7 1
+4 3 2
+7 8 8
+9 7 10
+9 8 7
+4 9 2
+*/
 void solve() {
   int N, M;
   cin >> N >> M;
-  vector<vector<pair<int, int>>> adj(N);
+  vector<array<int, 3>> edges(M);
   for (int i = 0; i < M; ++i) {
     int u, v, w;
     cin >> u >> v >> w;
-    --u, --v;
-    adj[u].push_back({v, w});
+    edges[i] = {w, u, v};
   }
-  priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
-  vector<int> dis(N, 1ll << 61);
-  vector<int> par(N);
-  pq.push({0, 0});
-  while (pq.size()) {
-    auto [d, u] = pq.top();
-    pq.pop();
-    if (dis[u] <= d) continue;
-    dis[u] = d;
-    for (auto [v, w] : adj[u]) {
-      if (d + w < dis[v]) {
-        par[v] = u;
-        pq.push({d + w, v});
-      }
-    }
+  sort(edges.begin(), edges.end());
+  dsu d(N + 1);
+  int ans = 0;
+  for (auto [w, u, v] : edges) {
+    if (d.get(u) == d.get(v)) continue;
+    ans += w;
+    d.unite(u, v);
   }
-  for (auto x : dis) {
-    cout << x << ' ';
-  }
+  cout << ans << '\n';
 }
 
 signed main () {

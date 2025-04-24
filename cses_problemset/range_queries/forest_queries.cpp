@@ -1,47 +1,72 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define ll long long
-#define pi pair<int, int>
-#define vi vector<int>
-#define vii vector<vector<int>>
-#define vpi vector<pi>
-#define pb push_back
-#define ar array
-#define all(a) (a).begin(), (a).end()
-#define rall(a) (a).rbegin(), (a).rend()
+#define int int64_t
 
-const ll MOD = 1e9+7;
-const ll INF = 1e18;
-const ll MAX = 1e3+1;
-const long double EPS = 1e-9; 
+struct BIT2D {
+  vector<vector<int>> bit;
+  int n, m; // give + 1
 
-int n, q;
-int g[MAX][MAX];
-void solve() {
-    cin >> n >> q;
-    for (int i = 1; i <= n; ++i)
-        for (int j = 1; j <= n; ++j) {
-            char c; cin >> c;
-            g[i][j] = c == '*';
-            g[i][j] += g[i-1][j] + g[i][j-1] - g[i-1][j-1];
-        }
-    
-    while (q--) {
-        int r1, c1, r2, c2;
-        cin >> r1 >> c1 >> r2 >> c2;
-        --r1, --c1;
-        cout << g[r2][c2] - g[r2][c1] - g[r1][c2] + g[r1][c1] << '\n';
+  BIT2D(int n, int m) : n(n), m(m) {
+    bit.assign(n, vector<int>(m, 0));
+  }
+
+  int sum(int x, int y) {
+    int ret = 0;
+    for (int i = x; i >= 0; i = (i & (i + 1)) - 1) {
+      for (int j = y; j >= 0; j = (j & (j + 1)) - 1) {
+        ret += bit[i][j];
+      }
     }
+    return ret;
+  }
+
+  void add(int x, int y, int delta) {
+    for (int i = x; i < n; i = i | (i + 1)) {
+      for (int j = y; j < m; j = j | (j + 1)) {
+        bit[i][j] += delta;
+      }
+    }
+  }
+};
+
+void solve() {
+  int N, Q;
+  cin >> N >> Q;
+  vector<vector<int>> grid(N + 1, vector<int>(N + 1));
+  BIT2D bit(N + 1, N + 1);
+  for (int i = 1; i <= N; ++i) {
+    for (int j = 1; j <= N; ++j) {
+      char c;
+      cin >> c;
+      grid[i][j] = c == '*';
+      bit.add(i, j, grid[i][j]);
+    }
+  }
+  while (Q--) {
+    int qt;
+    cin >> qt;
+    if (qt & 1) {
+      int i, j;
+      cin >> i >> j;
+      int a = grid[i][j];
+      grid[i][j] ^= 1;
+      bit.add(i, j, grid[i][j] - a);
+    } else {
+      int x1, y1, x2, y2;
+      cin >> x1 >> y1 >> x2 >> y2;
+      cout << bit.sum(x2, y2) + bit.sum(x1 - 1, y1 - 1) - bit.sum(x1 - 1, y2) - bit.sum(x2, y1 - 1) << '\n';
+    }
+  }
 }
 
-int main () {
-
-	ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-	
-	int t = 1;
-	// cin >> t;
-	while (t--) solve();
-
-	return 0;
+signed main () {
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  int t = 1;
+  // cin >> t;
+  while (t--) {
+    solve();
+  }
+  return 0;
 }
