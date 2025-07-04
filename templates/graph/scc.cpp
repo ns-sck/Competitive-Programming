@@ -8,17 +8,25 @@ void dfs(int u, vector<vector<int>>& G, vector<int>& output) {
   vis[u] = true;
   for (auto v : G[u]) {
     if (!vis[v]) {
-      dfs(u, G, output);
+      dfs(v, G, output);
     }
   }
   output.push_back(u);
 }
  
 void scc() {
+  rev = vector<vector<int>>(N);
+  vis = vector<bool>(N);
+  cyc = vector<bool>(N);
   vector<int> order;
-  for (int i = 1; i <= N; i++) {
+  for (int i = 0; i < N; i++) {
     if (!vis[i]) {
       dfs(i, adj, order); 
+    }
+  }
+  for (int i = 0; i < N; ++i) {
+    for (int& j : adj[i]) {
+      rev[j].push_back(i);
     }
   }
   vis.assign(N, 0);

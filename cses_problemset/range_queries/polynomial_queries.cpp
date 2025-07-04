@@ -27,11 +27,13 @@ struct Info {
 
 struct Tag {
   int delta = 0;
+  int count = 0;
   int put = -1;
   Tag() : put(-1), delta(0) {}
 
   void apply(Info& a, int nl, int nr) {
-    int x = (delta + (nr - nl)) * (delta + (nr - nl) + 1) / 2 - (delta - 1) * delta / 2;
+    int d = nr - nl;
+    int x = (double) ((delta + d * count) + delta) / 2.0 * (nr - nl + 1);
     a.sum += x;
     a.mn += delta;
     a.mx += delta;
@@ -58,9 +60,12 @@ struct LazySegmentTree {
     tag[i].apply(info[i], nl, nr);
     if (nl ^ nr) {
       tag[lch].delta += tag[i].delta;
-      tag[rch].delta += tag[i].delta + (nr - nl + 1) / 2;
+      tag[lch].count += tag[i].count;
+      tag[rch].delta += tag[i].delta + tag[i].count * (nr - nl + 1) / 2;
+      tag[rch].count += tag[i].count;
     }
     tag[i].delta = 0;
+    tag[i].count = 0;
   }
 
   void modify(int ql, int qr, int& val, int i = 1, int nl = 0, int nr = -1) {
@@ -70,6 +75,7 @@ struct LazySegmentTree {
 
     if (nl >= ql && nr <= qr) {
       tag[i].delta += val;
+      tag[i].count++;
       val += nr - nl + 1;
       push(i, nl, nr);
       return;
@@ -126,7 +132,6 @@ void solve() {
     info[i] = arr[i];
   }
   LazySegmentTree st(info);
-  vector<int> arr2 = arr;
   while (Q--) {
     int qt, l, r;
     cin >> qt >> l >> r;
@@ -134,16 +139,8 @@ void solve() {
     if (qt & 1) {
       int x = 1;
       st.modify(l, r, x);
-      for (int i = l; i <= r; ++i) {
-        arr2[i] += i + 1 - l;
-      }
     } else {
       cout << st.query(l, r).sum << '\n';
-      int ans2 = 0;
-      for (int i = l; i <= r; ++i) {
-        ans2 += arr2[i];
-      }
-      cout << ans2 << '\n';
     }
   }
 }

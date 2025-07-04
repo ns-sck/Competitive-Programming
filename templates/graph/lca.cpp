@@ -14,7 +14,7 @@ inline bool anc(int u, int v) {
   return in[u] <= in[v] && out[u] >= out[v];
 }
 
-inline int find_lca(int u, int v) {
+inline int find_lca(int x, int y) {
   assert(!pr.empty());
   if (anc(x, y)) {
     return x;

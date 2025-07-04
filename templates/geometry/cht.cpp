@@ -51,7 +51,6 @@ struct CHT {
 		}
 		return ans;
 	}
-
 };
 
 void solve() {

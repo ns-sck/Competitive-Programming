@@ -5,22 +5,25 @@ using namespace std;
 #define vi vector<int>
 #define vii vector<vector<int>>
 #define mii map<int, int>
-#define ios ios::sync_with_stdio(0);cin.tie(0);cout.tie(0)
-const int MOD = 1e9+7;
+#define ios                \
+  ios::sync_with_stdio(0); \
+  cin.tie(0);              \
+  cout.tie(0)
+const int MOD = 1e9 + 7;
 
 int32_t main() {
-
-    ios;
-    int n; cin >> n;
-    vi dp(n+1, 0);
-    dp[0] = 1;
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= 6; ++j) {
-            if (i-j >= 0) {
-                dp[i] = (dp[i] + dp[i-j]) % MOD;
-            }
-        }
+  ios;
+  int n;
+  cin >> n;
+  vi dp(n + 1, 0);
+  dp[0] = 1;
+  for (int i = 1; i <= n; ++i) {
+    for (int j = 1; j <= 6; ++j) {
+      if (i - j >= 0) {
+        dp[i] = (dp[i] + dp[i - j]) % MOD;
+      }
     }
-    cout << dp[n];
-    return 0;
+  }
+  cout << dp[n];
+  return 0;
 }
