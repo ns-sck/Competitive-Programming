@@ -1,0 +1,5 @@
+// k'th convolution of catalan
+// (k + 1) / (n + k + 1) * comb(2 * n + k, n)
+// so when k is 0
+// (1 / (n + 1) * comb(2 * n, n))
+// which is catalan numbers

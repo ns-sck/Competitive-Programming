@@ -46,7 +46,7 @@ void solve() {
     auto [d, i] = pq.top();
     pq.pop();
     if (dis[i] > d) continue;
-    dis[d] = d;
+    dis[i] = d;
     for (int& j : adj[i]) {
       if (d + 1 > dis[j]) {
         pq.push({d + 1, j});

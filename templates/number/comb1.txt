@@ -1,0 +1,8 @@
+int N, M;
+cin >> N >> M;
+int ans = 0;
+for (int i = 0; i <= min(N, M); ++i) {
+  ans += comb(N, i) * comb(M, i);
+}
+cout << ans << '\n';
+// C(N + M, min(N, M))

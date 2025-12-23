@@ -18,8 +18,6 @@ signed main() {
   cin.tie(nullptr);
   int t = 1;
   // cin >> t;
-  while (t--) {
-    solve();
-  }
+  while (t--) solve();
   return 0;
 }

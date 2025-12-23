@@ -1,0 +1,42 @@
+- nasil calisilir?
+  - ogrenme
+    - cp algorithms konu okuma
+    - competitive programer's handbook (https://cses.fi/book/book.pdf)
+    - videolar (errichto, tourist vs.)
+    - editorial okuma (codeforces, algoleague, leetcode)
+  - soru cozme
+    - temel sorular (algoleague, cses, leetcode..)
+    - adhoc, gozlem odakli sorular (codeforces, atcoder..)
+    - soruya ne kadar ugrasilir
+    - zor - kolay soru dengesi, optimal zorluk
+  - ogrenme - soru dengesi
+    - surekli ayni seviye soru cozmek
+    - surekli yeni konu ogrenmek
+  - motivasyon
+    - amac ne? mulakat, merak, zevk..
+    - sadece contest girmek
+    - arkadas gecmek?
+
+- nasil cozulur
+  - soruyu dogru anlamak, soruyu dogru anlamak, soruyu dogru anlamak
+  - sorunun konusunu anlamak, greedy, dp, graph, implementasyon
+  - constraintlerden cozum cikarmak (https://algoleague.com/contest/algometu25-qualification-round/problem/list)
+  - testcaselerden cozum cikarmak (https://codeforces.com/contest/2112/problem/E)
+  - pattern arayarak cozum cikarmak (https://algoleague.com/problem/rogue-frequency-easy-version/detail)
+  - belli basli konular, binary search, parity, sum..
+
+- contest
+  - bireysel yarisma
+    - hangi sorulara bakilmali (https://algoleague.com/contest/algometu25-final-round/problem/list)
+    - soruya takili kalmak, yeni sorulara bakmak 
+    - bir sorunun beklenilenden az/fazla cozulmesi 
+    - wrong/tle/mle/runtime error
+    - direkt kodlamak / emin olduktan sonra yazmaya baslamak
+  - takimla yarisma
+    - kim hangi soruya bakmali, yetkinlikler
+    - cikmayan soruyu baska birinin sifirdan cozmesi
+  - hile hurdayla soru cozmek (legal)
+    
+- templateler
+- macrolar
+- debuglama
